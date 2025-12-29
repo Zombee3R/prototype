@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kurs auswählen - Lecture Feedback</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="url-display">
+            LectureFeedback/KursAuswaehlen
+        </div>
+        <div class="user-menu">
+            <button class="nav-link" onclick="location.href='index.html'">Zurück</button>
+            <button class="nav-link">Einstellungen</button>
+            <button class="nav-link">Logout</button>
+            <span class="user-avatar">👤</span>
+        </div>
+    </header>
+
+    <main class="hero-section">
+        <div class="center-container">
+            <label for="kurs-auswahl" class="input-label">Wähle deinen Kurs:</label>
+            
+            <input list="kurs-liste" id="kurs-auswahl" name="kurs-auswahl" class="main-input" placeholder="Kurs suchen oder auswählen...">
+            
+            <datalist id="kurs-liste">
+                <option value="Informatik">
+                <option value="HCI">
+                <option value="Mathematik">
+            </datalist>
+
+            <button class="main-button action-confirm" onclick="location.href='dashboard.html'">Bestätigen</button>
+        </div>
+    </main>
+
+    <script src="js/script.js"></script>
+</body>
+</html>

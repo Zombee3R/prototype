@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neuen Kurs anlegen - Lecture Feedback</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="url-display">LectureFeedback/KursAnlegen</div>
+        <div class="user-menu">
+            <button class="nav-link" onclick="location.href='index.html'">Zurück</button>
+            <button class="nav-link">Einstellungen</button>
+            <button class="nav-link">Logout</button>
+            <span class="user-avatar">👤</span>
+        </div>
+    </header>
+
+    <main class="hero-section">
+        <div class="center-container">
+            <label for="new-course" class="input-label">Gib den Namen des neuen Kurses ein:</label>
+            
+            <input list="existierende-kurse" id="new-course" name="new-course" class="main-input" placeholder="Kursname eingeben...">
+            
+            <datalist id="existierende-kurse">
+                <option value="Informatik">
+                <option value="HCI">
+                <option value="Mathematik">
+            </datalist>
+
+            <button class="main-button action-confirm">Kurs erstellen</button>
+        </div>
+    </main>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
