@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neue Sitzung erstellen - Lecture Feedback</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="url-display">.../Dashboard/NeueSitzung</div>
+        <div class="user-menu">
+            <button class="nav-link" onclick="location.href='kurs_dashboard.html'">Zurück</button>
+            <button class="nav-link">Einstellungen</button>
+            <button class="nav-link">Logout</button>
+            <span class="user-avatar">👤</span>
+        </div>
+    </header>
+
+    <main class="hero-section">
+        <div class="center-container session-setup">
+            <div class="feedback-card">
+                <h2>Feedback erlauben</h2>
+                
+                <div class="option-row">
+                    <span>Tempo - Slider ⚡ 🐢</span>
+                    <input type="checkbox" checked>
+                </div>
+                
+                <div class="option-row">
+                    <span>Verständnis 🙂 ☹️</span>
+                    <input type="checkbox" checked>
+                </div>
+                
+                <div class="option-row">
+                    <span>Stimmung 🤙 😐</span>
+                    <input type="checkbox" checked>
+                </div>
+            </div>
+
+            <div class="text-question-area">
+                <label for="popular-questions">Text-Frage erlauben:</label>
+                
+                <input list="popular-questions-list" id="popular-questions" name="popular-questions" class="main-input" placeholder="Wähle eine Frage oder tippe selbst...">
+                
+                <datalist id="popular-questions-list">
+                    <option value="Haben Sie Fragen zum aktuellen Thema?">
+                    <option value="War das Tempo heute angemessen?">
+                    <option value="Was war der schwierigste Teil der Vorlesung?">
+                    <option value="Haben Sie Verbesserungsvorschläge für das nächste Mal?">
+                    <option value="Welches Thema sollen wir vertiefen?">
+                </datalist>
+            </div>
+
+            <button class="main-button qr-btn" onclick="alert('QR-Code wird generiert...')">
+                QR Erzeugen
+            </button>
+        </div>
+    </main>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
