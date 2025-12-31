@@ -44,10 +44,8 @@ function saveCourseAndRedirect() {
    3. Session Validation & Question Logic
    ========================================= */
 function validateAndGenerate() {
-    // A. التحقق من خيارات الفيدباك
     const options = document.querySelectorAll('.option-row input[type="checkbox"]');
     
-    // تأكد من وجود العناصر لتجنب الأخطاء
     if(options.length > 0) {
         const isTempoChecked = options[0].checked;
         const isVerstaendnisChecked = options[1].checked;
@@ -57,29 +55,24 @@ function validateAndGenerate() {
             alert("Bitte wählen Sie mindestens eine Feedback-Option aus (Tempo, Verständnis oder Stimmung)!");
             return;
         }
-               // === التعديل الجديد: حفظ إعدادات الجلسة ===
         const sessionConfig = {
             tempo: isTempoChecked,
             verstaendnis: isVerstaendnisChecked,
             stimmung: isStimmungChecked
         };
-        // نحول الكائن لنص JSON لنحفظه في الذاكرة
         localStorage.setItem('sessionConfig', JSON.stringify(sessionConfig));
     }
 
-    // B. حفظ السؤال النصي
     const questionInput = document.getElementById('popular-questions');
     const allowText = document.getElementById('allow-text-questions');
 
     if (allowText && allowText.checked) {
-        // نستخدم trim() للتأكد أن المستخدم لم يدخل مسافات فارغة فقط
         const qValue = questionInput.value.trim() ? questionInput.value : "Offene Runde";
         localStorage.setItem('activeSessionQuestion', qValue);
     } else {
         localStorage.removeItem('activeSessionQuestion');
     }    
 
-    // C. الانتقال
     location.href = 'qr_anzeige.html';
 }
 
@@ -113,7 +106,6 @@ function updateDashboardStats() {
     const understandBar = document.getElementById('stat-understanding-bar');
     const questionsEl = document.getElementById('stat-questions');
 
-    // تأكد أننا في صفحة الداشبورد وأن البيانات موجودة
     if (tempoVal && currentCourse && courseData[currentCourse]) {
         const data = courseData[currentCourse];
 
@@ -125,7 +117,6 @@ function updateDashboardStats() {
             understandBar.style.width = data.understanding + "%";
         }, 100);
 
-        // تلوين الأشرطة
         if(data.tempo > 80) tempoBar.style.backgroundColor = "#e74c3c"; 
         else if(data.tempo < 50) tempoBar.style.backgroundColor = "#3498db"; 
         else tempoBar.style.backgroundColor = "#2ecc71"; 
@@ -133,7 +124,6 @@ function updateDashboardStats() {
         if(data.understanding < 50) understandBar.style.backgroundColor = "#e74c3c";
         else understandBar.style.backgroundColor = "#2ecc71";
 
-        // تعبئة الأسئلة
         questionsEl.innerHTML = ""; 
         data.questions.forEach(question => {
             const div = document.createElement('div');
@@ -151,16 +141,12 @@ function updateSessionList() {
     const currentCourse = localStorage.getItem('currentCourseName');
     const sessionListEl = document.querySelector('.session-list');
     
-    // أسماء الكورسات التي نعتبرها "قديمة" ولها بيانات
     const coursesWithHistory = ["Informatik", "HCI", "Mathematik"];
     
     if (sessionListEl && currentCourse) {
-        // التحقق: هل الكورس الحالي واحد من الكورسات القديمة؟
-        // نستخدم toLowerCase لتجنب مشاكل الحروف الكبيرة والصغيرة
         const isOldCourse = coursesWithHistory.some(c => c.toLowerCase() === currentCourse.toLowerCase());
 
         if (!isOldCourse) {
-            // إذا كان كورساً جديداً، نفرغ القائمة ونعرض الرسالة
             sessionListEl.innerHTML = `
                 <li style="text-align: center; padding: 20px; color: var(--text-color); opacity: 0.7; font-style: italic;">
                     Noch keine Sitzungen vorhanden. <br>
@@ -169,37 +155,31 @@ function updateSessionList() {
                 </li>
             `;
         }
-        // ملاحظة: إذا كان كورساً قديماً، لن نفعل شيئاً، وسيبقى كود HTML الأصلي (Sitzung 1, 2...) كما هو.
     }
 }
 
 /* =========================================
    6. MAIN EVENT LISTENER (The Brain)
-   هذا الجزء ينفذ الأوامر تلقائياً عند تحميل أي صفحة
    ========================================= */
 document.addEventListener('DOMContentLoaded', () => {
     
-    // أ. تحديث أيقونة الثيم
     const activeTheme = document.documentElement.getAttribute('data-theme');
     updateIcon(activeTheme);
 
-    // ب. تحديث عناوين الداشبورد
     const titleElement = document.getElementById('course-title');
     if (titleElement) {
         const savedCourse = localStorage.getItem('currentCourseName');
-        const savedSemester = localStorage.getItem('currentSemester'); // جلبنا السمستر أيضاً إذا وجد
+        const savedSemester = localStorage.getItem('currentSemester');
         
         if (savedCourse) {
-            // إذا كان هناك سمستر، نضيفه للعنوان
             const titleText = savedSemester ? `${savedCourse} (${savedSemester})` : savedCourse;
             titleElement.textContent = titleText + " - Dashboard";
         }
         
-        updateDashboardStats(); // تحديث الإحصائيات
-        updateSessionList();    // <--- تحديث قائمة الجلسات (الدالة الجديدة)
+        updateDashboardStats(); 
+        updateSessionList();    
     }
     
-    // ج. تحديث مسار الرابط العلوي
     const urlDisplay = document.querySelector('.url-display');
     if (urlDisplay && localStorage.getItem('currentCourseName')) {
         if(urlDisplay.textContent.includes("KursAuswaehlen") || urlDisplay.textContent.includes("LectureFeedback")) {
@@ -207,7 +187,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // د. عرض السؤال المختار في Live Dashboard
     const displayDiv = document.getElementById('main-question-display');
     if (displayDiv) {
         const savedQuestion = localStorage.getItem('activeSessionQuestion');
@@ -219,7 +198,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // هـ. التحكم في ظهور البارات (Sliders)
     const feedbackTab = document.getElementById('feedback');
     if (feedbackTab) {
         const configStr = localStorage.getItem('sessionConfig');
