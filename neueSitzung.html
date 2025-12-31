@@ -43,8 +43,13 @@
             </div>
 
             <div class="text-question-area">
-                <label for="popular-questions">Text-Frage erlauben:</label>
+                <!-- أضفنا div جديد ليجمع العنوان مع الـ Checkbox -->
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                    <label for="popular-questions" style="margin: 0; font-weight: bold;">Text-Frage erlauben:</label>
+                    <input type="checkbox" id="allow-text-questions">
+                </div>
                 
+                <!-- حقل الإدخال كما هو -->
                 <input list="popular-questions-list" id="popular-questions" name="popular-questions" class="main-input" placeholder="Wähle eine Frage oder tippe selbst...">
                 
                 <datalist id="popular-questions-list">
@@ -56,7 +61,7 @@
                 </datalist>
             </div>
 
-            <button class="main-button qr-btn" onclick="location.href='qr_anzeige.html'">
+            <button class="main-button qr-btn" onclick="validateAndGenerate()">
                 QR Erzeugen
             </button>
 
