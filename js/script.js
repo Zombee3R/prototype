@@ -145,7 +145,36 @@ function updateDashboardStats() {
 }
 
 /* =========================================
-   5. MAIN EVENT LISTENER (The Brain)
+   5. Session List Logic (New vs Old Courses)
+   ========================================= */
+function updateSessionList() {
+    const currentCourse = localStorage.getItem('currentCourseName');
+    const sessionListEl = document.querySelector('.session-list');
+    
+    // أسماء الكورسات التي نعتبرها "قديمة" ولها بيانات
+    const coursesWithHistory = ["Informatik", "HCI", "Mathematik"];
+    
+    if (sessionListEl && currentCourse) {
+        // التحقق: هل الكورس الحالي واحد من الكورسات القديمة؟
+        // نستخدم toLowerCase لتجنب مشاكل الحروف الكبيرة والصغيرة
+        const isOldCourse = coursesWithHistory.some(c => c.toLowerCase() === currentCourse.toLowerCase());
+
+        if (!isOldCourse) {
+            // إذا كان كورساً جديداً، نفرغ القائمة ونعرض الرسالة
+            sessionListEl.innerHTML = `
+                <li style="text-align: center; padding: 20px; color: var(--text-color); opacity: 0.7; font-style: italic;">
+                    Noch keine Sitzungen vorhanden. <br>
+                    <span style="font-size: 1.5rem; display: block; margin-top: 10px;">🚀</span>
+                    Starten Sie Ihre erste Sitzung!
+                </li>
+            `;
+        }
+        // ملاحظة: إذا كان كورساً قديماً، لن نفعل شيئاً، وسيبقى كود HTML الأصلي (Sitzung 1, 2...) كما هو.
+    }
+}
+
+/* =========================================
+   6. MAIN EVENT LISTENER (The Brain)
    هذا الجزء ينفذ الأوامر تلقائياً عند تحميل أي صفحة
    ========================================= */
 document.addEventListener('DOMContentLoaded', () => {
@@ -154,26 +183,31 @@ document.addEventListener('DOMContentLoaded', () => {
     const activeTheme = document.documentElement.getAttribute('data-theme');
     updateIcon(activeTheme);
 
-    // ب. تحديث عناوين الداشبورد (إذا كنا في صفحة الداشبورد)
+    // ب. تحديث عناوين الداشبورد
     const titleElement = document.getElementById('course-title');
     if (titleElement) {
         const savedCourse = localStorage.getItem('currentCourseName');
+        const savedSemester = localStorage.getItem('currentSemester'); // جلبنا السمستر أيضاً إذا وجد
+        
         if (savedCourse) {
-            titleElement.textContent = savedCourse + " - Dashboard";
+            // إذا كان هناك سمستر، نضيفه للعنوان
+            const titleText = savedSemester ? `${savedCourse} (${savedSemester})` : savedCourse;
+            titleElement.textContent = titleText + " - Dashboard";
         }
-        updateDashboardStats(); // تحديث الإحصائيات أيضاً
+        
+        updateDashboardStats(); // تحديث الإحصائيات
+        updateSessionList();    // <--- تحديث قائمة الجلسات (الدالة الجديدة)
     }
     
     // ج. تحديث مسار الرابط العلوي
     const urlDisplay = document.querySelector('.url-display');
     if (urlDisplay && localStorage.getItem('currentCourseName')) {
-        // نتأكد ألا نكتب فوق النص إذا كانت صفحة خاصة مثل QR
-        if(urlDisplay.textContent.includes("KursAuswaehlen")) {
-            urlDisplay.textContent = `.../KursAuswaehlen/${localStorage.getItem('currentCourseName')}/Dashboard`;
+        if(urlDisplay.textContent.includes("KursAuswaehlen") || urlDisplay.textContent.includes("LectureFeedback")) {
+            urlDisplay.textContent = `.../Kurs/${localStorage.getItem('currentCourseName')}/Dashboard`;
         }
     }
 
-    // د. عرض السؤال المختار في Live Dashboard (إذا كنا فيها)
+    // د. عرض السؤال المختار في Live Dashboard
     const displayDiv = document.getElementById('main-question-display');
     if (displayDiv) {
         const savedQuestion = localStorage.getItem('activeSessionQuestion');
@@ -185,44 +219,21 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-       // ... (بعد كود عرض السؤال السابق) ...
-
-    // هـ. التحكم في ظهور البارات (Sliders) بناءً على اختيارات المدرس
-    // هذا الكود يعمل فقط في صفحة Live Dashboard
+    // هـ. التحكم في ظهور البارات (Sliders)
     const feedbackTab = document.getElementById('feedback');
     if (feedbackTab) {
-        // 1. قراءة الإعدادات المحفوظة
         const configStr = localStorage.getItem('sessionConfig');
         if (configStr) {
             const config = JSON.parse(configStr);
-
-            // 2. التحكم في الظهور
-            // ملاحظة: يجب أن تضيف IDs للـ rows في HTML ليسهل إخفاؤها
-            // أو نستخدم البحث الذكي كما سنفعل الآن:
-            
             const rows = document.querySelectorAll('.slider-row');
-            // نفترض الترتيب في HTML هو: 0=Verständnis, 1=Stimmung, 2=Tempo
-            // راجع ترتيبك في HTML للتأكد!
             
-            // في كودك HTML السابق كان الترتيب: 
-            // 1. Verständnis (الفهم)
-            // 2. Stimmung (المزاج)
-            // 3. Tempo (السرعة)
-
+            // ترتيب HTML: 0=Verständnis, 1=Stimmung, 2=Tempo
             if (rows.length >= 3) {
-                // الفهم
-                if (!config.verstaendnis) {
-                    rows[0].style.display = 'none';
-                }
-                // المزاج
-                if (!config.stimmung) {
-                    rows[1].style.display = 'none';
-                }
-                // السرعة
-                if (!config.tempo) {
-                    rows[2].style.display = 'none';
-                }
+                if (!config.verstaendnis) rows[0].style.display = 'none';
+                if (!config.stimmung) rows[1].style.display = 'none';
+                if (!config.tempo) rows[2].style.display = 'none';
             }
         }
     }
 });
+
