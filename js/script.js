@@ -196,19 +196,21 @@ document.addEventListener('DOMContentLoaded', () => {
     const activeTheme = document.documentElement.getAttribute('data-theme');
     updateIcon(activeTheme);
 
-    const titleElement = document.getElementById('course-title');
-    if (titleElement) {
-        const savedCourse = localStorage.getItem('currentCourseName');
-        const savedSemester = localStorage.getItem('currentSemester');
+   const titleElement = document.getElementById('course-title');
+      if (titleElement) {
+       const savedCourse = localStorage.getItem('currentCourseName');
+    
+       if (savedCourse) {
+           const semester = getSemesterForCourse(savedCourse);
         
-        if (savedCourse) {
-            const titleText = savedSemester ? `${savedCourse} (${savedSemester})` : savedCourse;
-            titleElement.textContent = titleText + " - Dashboard";
-        }
-        
-        updateDashboardStats(); 
-        updateSessionList();    
+        const titleText = semester ? `${savedCourse} (${semester})` : savedCourse;
+        titleElement.textContent = titleText + " - Dashboard";
     }
+    
+    updateDashboardStats();
+    updateSessionList();
+}
+
     
     const urlDisplay = document.querySelector('.url-display');
     if (urlDisplay && localStorage.getItem('currentCourseName')) {
@@ -235,7 +237,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const config = JSON.parse(configStr);
             const rows = document.querySelectorAll('.slider-row');
             
-            // ترتيب HTML: 0=Verständnis, 1=Stimmung, 2=Tempo
+            //  HTML: 0=Verständnis, 1=Stimmung, 2=Tempo
             if (rows.length >= 3) {
                 if (!config.verstaendnis) rows[0].style.display = 'none';
                 if (!config.stimmung) rows[1].style.display = 'none';
