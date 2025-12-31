@@ -44,33 +44,40 @@
                 </ul>
             </div>
 
-                <div class="stats-card">
+            <div class="stats-card">
                 <h3>Kurs Statistiken</h3>
-                <ul class="stats-list">
-                    <li>
-                        <strong>• Durchschnitt Tempo:</strong> 
-                        <span id="stat-tempo">--%</span>
-                    </li>
-                    <li>
-                        <strong>• Verständnis:</strong> 
-                        <span id="stat-understanding">--%</span>
-                    </li>
-                    <li style="margin-top: 10px;">
-                        <strong>• Top Fragen:</strong>
-                        <ul id="stat-questions" style="padding-left: 20px; font-size: 0.9rem; color: var(--text-color); opacity: 0.8;">
-                        </ul>
-                    </li>
-                </ul>
+                
+                <div class="stats-content">
+                    <div class="stat-item">
+                        <div class="stat-header">
+                            <span>⚡ Durchschnitt Tempo</span>
+                            <span id="stat-tempo-val" class="stat-value">--%</span>
+                        </div>
+                        <div class="progress-bar-bg">
+                            <div id="stat-tempo-bar" class="progress-bar-fill" style="width: 0%"></div>
+                        </div>
+                    </div>
+
+                    <div class="stat-item">
+                        <div class="stat-header">
+                            <span>🧠 Verständnis</span>
+                            <span id="stat-understanding-val" class="stat-value">--%</span>
+                        </div>
+                        <div class="progress-bar-bg">
+                            <div id="stat-understanding-bar" class="progress-bar-fill" style="width: 0%"></div>
+                        </div>
+                    </div>
+
+                    <div class="stat-item questions-section">
+                        <span class="stat-label">❓ Top Fragen</span>
+                        <div id="stat-questions" class="questions-list">
+                            <!-- الأسئلة ستظهر هنا كبطاقات -->
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <!-- <div class="stats-card">
-                <h3>Kurs Statistiken</h3>
-                <ul class="stats-list">
-                    <li>• Durchschnitt Tempo</li>
-                    <li>• Verständnis</li>
-                    <li>• Top Fragen</li>
-                </ul>
-            </div> -->
+
             
         </section>
     </main>
