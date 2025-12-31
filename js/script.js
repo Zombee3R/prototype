@@ -57,6 +57,15 @@ function validateAndGenerate() {
             alert("Bitte wählen Sie mindestens eine Feedback-Option aus (Tempo, Verständnis oder Stimmung)!");
             return;
         }
+               // === التعديل الجديد: حفظ إعدادات الجلسة ===
+        const sessionConfig = {
+            tempo: isTempoChecked,
+            verstaendnis: isVerstaendnisChecked,
+            stimmung: isStimmungChecked
+        };
+        // نحول الكائن لنص JSON لنحفظه في الذاكرة
+        localStorage.setItem('sessionConfig', JSON.stringify(sessionConfig));
+    }
     }
 
     // B. حفظ السؤال النصي
@@ -174,6 +183,47 @@ document.addEventListener('DOMContentLoaded', () => {
             displayDiv.style.display = "block";
         } else {
             displayDiv.style.display = "none";
+        }
+    }
+
+       // ... (بعد كود عرض السؤال السابق) ...
+
+    // هـ. التحكم في ظهور البارات (Sliders) بناءً على اختيارات المدرس
+    // هذا الكود يعمل فقط في صفحة Live Dashboard
+    const feedbackTab = document.getElementById('feedback');
+    if (feedbackTab) {
+        // 1. قراءة الإعدادات المحفوظة
+        const configStr = localStorage.getItem('sessionConfig');
+        if (configStr) {
+            const config = JSON.parse(configStr);
+
+            // 2. التحكم في الظهور
+            // ملاحظة: يجب أن تضيف IDs للـ rows في HTML ليسهل إخفاؤها
+            // أو نستخدم البحث الذكي كما سنفعل الآن:
+            
+            const rows = document.querySelectorAll('.slider-row');
+            // نفترض الترتيب في HTML هو: 0=Verständnis, 1=Stimmung, 2=Tempo
+            // راجع ترتيبك في HTML للتأكد!
+            
+            // في كودك HTML السابق كان الترتيب: 
+            // 1. Verständnis (الفهم)
+            // 2. Stimmung (المزاج)
+            // 3. Tempo (السرعة)
+
+            if (rows.length >= 3) {
+                // الفهم
+                if (!config.verstaendnis) {
+                    rows[0].style.display = 'none';
+                }
+                // المزاج
+                if (!config.stimmung) {
+                    rows[1].style.display = 'none';
+                }
+                // السرعة
+                if (!config.tempo) {
+                    rows[2].style.display = 'none';
+                }
+            }
         }
     }
 });
