@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code - Lecture Feedback</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .qr-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 80vh; /* يجعل المحتوى في وسط الشاشة تقريباً */
+            text-align: center;
+            gap: 30px;
+        }
+
+        .qr-image {
+            width: 250px;
+            height: 250px;
+            border: 4px solid var(--text-color);
+            padding: 10px;
+            background-color: white; /* الـ QR دائماً خلفيته بيضاء حتى في الوضع الليلي للقراءة */
+            border-radius: 10px;
+        }
+
+        .scan-text {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--text-color);
+        }
+
+        .live-btn {
+            background-color: #2ecc71;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+            transition: transform 0.2s;
+        }
+
+        .live-btn:hover {
+            transform: scale(1.05);
+            background-color: #27ae60;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="url-display">.../NeueSitzung/QR</div>
+        <div class="user-menu">
+            <button class="nav-link" onclick="location.href='neueSitzung.html'">Zurück</button>
+            <button class="icon-btn" onclick="toggleDarkMode()">
+                <span id="theme-icon">🌙</span>
+            </button>
+        </div>
+    </header>
+
+    <main class="hero-section">
+        <div class="qr-container">
+            
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=https://lecture-feedback.com/student" alt="QR Code" class="qr-image">
+
+            <div class="scan-text">
+                Bitte scannen für Live-Feedback
+            </div>
+
+            <button class="live-btn" onclick="location.href='live_dashboard.html'">
+                Live-Dashboard öffnen
+            </button>
+
+        </div>
+    </main>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
