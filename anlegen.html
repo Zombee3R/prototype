@@ -75,8 +75,16 @@
                 return;
             }
 
-            localStorage.setItem('currentCourseName', courseName);
-            localStorage.setItem('currentSemester', semester);
+    localStorage.setItem('currentCourseName', courseName);
+
+
+    if (semester) {
+        saveSemesterForNewCourse(courseName, semester);
+    }
+
+alert(`Kurs "${courseName}" wurde erfolgreich erstellt!`);
+location.href = 'dashboard.html';
+
             
             
             alert(`Kurs "${courseName}" wurde erfolgreich erstellt!`);
