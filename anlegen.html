@@ -5,6 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Neuen Kurs anlegen - Lecture Feedback</title>
     <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* تنسيق بسيط للحقل الإضافي ليكون مطابقاً للتصميم */
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            width: 100%;
+        }
+        .semester-input {
+            margin-top: 15px; /* مسافة بين الحقلين */
+        }
+    </style>
 </head>
 <body>
 
@@ -23,20 +35,67 @@
 
     <main class="hero-section">
         <div class="center-container">
-            <label for="new-course" class="input-label">Gib den Namen des neuen Kurses ein:</label>
             
-            <input list="existierende-kurse" id="new-course" name="new-course" class="main-input" placeholder="Kursname eingeben...">
-            
-            <datalist id="existierende-kurse">
-                <option value="Informatik">
-                <option value="HCI">
-                <option value="Mathematik">
-            </datalist>
+            <!-- حقل اسم الكورس -->
+            <div class="input-group">
+                <label for="new-course" class="input-label">Name des neuen Kurses:</label>
+                <!-- حذفنا القائمة المنسدلة وجعلناه حقلاً نصياً عادياً -->
+                <input type="text" id="new-course" class="main-input" placeholder="z.B. Software Engineering...">
+            </div>
 
-            <button class="main-button action-confirm">Kurs erstellen</button>
+            <!-- حقل الفصل الدراسي (الجديد) -->
+            <div class="input-group semester-input">
+                <label for="course-semester" class="input-label">Semester (Optional):</label>
+                <input type="text" id="course-semester" class="main-input" placeholder="z.B. WiSe 2025/26...">
+            </div>
+
+            <!-- زر الإنشاء -->
+            <button class="main-button action-confirm" onclick="validateAndCreateCourse()">Kurs erstellen</button>
         </div>
     </main>
 
     <script src="js/script.js"></script>
+    
+    <!-- كود المنطق الخاص بهذه الصفحة -->
+    <script>
+        // قائمة الكورسات الموجودة مسبقاً (محاكاة لقاعدة البيانات)
+        const existingCourses = ["Informatik", "HCI", "Mathematik"];
+
+        function validateAndCreateCourse() {
+            const nameInput = document.getElementById('new-course');
+            const semesterInput = document.getElementById('course-semester');
+            
+            const courseName = nameInput.value.trim();
+            const semester = semesterInput.value.trim();
+
+            // 1. التحقق من أن الاسم ليس فارغاً
+            if (courseName === "") {
+                alert("Bitte geben Sie einen Kursnamen ein!");
+                return;
+            }
+
+            // 2. التحقق من التكرار (Case-Insensitive)
+            // يعني: informatik هي نفسها Informatik
+            const isDuplicate = existingCourses.some(
+                existing => existing.toLowerCase() === courseName.toLowerCase()
+            );
+
+            if (isDuplicate) {
+                alert(`Der Kurs "${courseName}" existiert bereits! Bitte wählen Sie einen anderen Namen.`);
+                return;
+            }
+
+            // 3. النجاح: حفظ الكورس الجديد والانتقال
+            // نحفظ الاسم والسمستر في الذاكرة لنعرضهم في الداشبورد لاحقاً
+            localStorage.setItem('currentCourseName', courseName);
+            localStorage.setItem('currentSemester', semester);
+            
+            // إضافة الكورس الجديد للقائمة (نظرياً، لأنه لا يوجد قاعدة بيانات حقيقية)
+            // في تطبيق حقيقي سيتم إرسال البيانات للسيرفر هنا.
+            
+            alert(`Kurs "${courseName}" wurde erfolgreich erstellt!`);
+            location.href = 'dashboard.html'; // الانتقال للداشبورد الخاص بالكورس الجديد
+        }
+    </script>
 </body>
 </html>
