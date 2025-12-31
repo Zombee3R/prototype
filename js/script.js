@@ -95,7 +95,37 @@ const courseData = {
         understanding: 40,
         questions: ["Beweis für Satz 3 nicht verstanden.", "Wie löst man das Integral?"]
     }
+   
 };
+
+/* =========================================
+   4b. Semester Data (Fester Speicher)
+   ========================================= */
+const defaultSemesters = {
+    "Informatik": "WiSe 25/26",
+    "HCI": "SoSe 25",
+    "Mathematik": "WiSe 24/25"
+};
+
+function getSemesterForCourse(courseName) {
+    const customSemesters = JSON.parse(localStorage.getItem('customSemesters') || '{}');
+    if (customSemesters[courseName]) {
+        return customSemesters[courseName];
+    }
+    
+    if (defaultSemesters[courseName]) {
+        return defaultSemesters[courseName];
+    }
+    
+    return "";
+}
+
+function saveSemesterForNewCourse(courseName, semester) {
+    const customSemesters = JSON.parse(localStorage.getItem('customSemesters') || '{}');
+    customSemesters[courseName] = semester;
+    localStorage.setItem('customSemesters', JSON.stringify(customSemesters));
+}
+
 
 function updateDashboardStats() {
     const currentCourse = localStorage.getItem('currentCourseName');
