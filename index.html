@@ -5,13 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lecture Feedback</title>
     <link rel="stylesheet" href="css/style.css">
+    <!-- إضافة ستايل بسيط للعنوان هنا لجعله كبيراً ومميزاً -->
+    <style>
+        .main-title {
+            font-size: 3rem;       /* خط كبير جداً */
+            font-weight: 800;      /* عريض جداً */
+            margin-bottom: 40px;   /* مسافة أسفله */
+            text-align: center;
+            background: linear-gradient(45deg, var(--text-color), #666); /* تأثير لوني بسيط */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent; /* يجعل النص يأخذ لون التدرج */
+            /* إذا لم يعمل التدرج في بعض المتصفحات، سيعود للون العادي تلقائياً */
+            color: var(--text-color); 
+        }
+    </style>
 </head>
 <body>
 
     <header class="main-header">
-        <div class="url-display">
-            LectureFeedback
-        </div>
+        <div class="url-display">Startseite</div>
         <div class="user-menu">
             <button class="icon-btn" onclick="toggleDarkMode()">
                 <span id="theme-icon">🌙</span>
@@ -24,8 +36,12 @@
 
     <main class="hero-section">
         <div class="center-container">
+            
+            <!-- العنوان الجديد هنا -->
+            <h1 class="main-title">Vorlesungs-Feedback</h1>
+
             <button class="main-button" onclick="location.href='auswaehlen.html'">Kurs auswählen</button>
-            <button class="main-button" onclick="location.href='anlegen.html'">neuen Kurs anlegen</button>
+            <button class="main-button" onclick="location.href='anlegen.html'">Neuen Kurs anlegen</button>
         </div>
     </main>
 
