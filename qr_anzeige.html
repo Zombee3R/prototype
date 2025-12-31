@@ -11,18 +11,17 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 80vh; /* يجعل المحتوى في وسط الشاشة تقريباً */
+            height: 80vh;
             text-align: center;
             gap: 30px;
         }
 
-        .qr-image {
-            width: 250px;
-            height: 250px;
+        #qrcode {
             border: 4px solid var(--text-color);
-            padding: 10px;
-            background-color: white; /* الـ QR دائماً خلفيته بيضاء حتى في الوضع الليلي للقراءة */
+            padding: 15px;
+            background-color: white; 
             border-radius: 10px;
+            display: inline-block;
         }
 
         .scan-text {
@@ -64,7 +63,7 @@
     <main class="hero-section">
         <div class="qr-container">
             
-            <img src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=https://lecture-feedback.com/student" alt="QR Code" class="qr-image">
+            <div id="qrcode"></div>
 
             <div class="scan-text">
                 Bitte scannen für Live-Feedback
@@ -77,6 +76,18 @@
         </div>
     </main>
 
+    <script src="js/qrcode.min.js"></script>
     <script src="js/script.js"></script>
+
+    <script>
+        new QRCode(document.getElementById("qrcode"), {
+            text: "https://lecture-feedback.com/student",
+            width: 250,
+            height: 250,
+            colorDark : "#000000",
+            colorLight : "#ffffff",
+            correctLevel : QRCode.CorrectLevel.H
+        });
+    </script>
 </body>
 </html>
