@@ -93,29 +93,42 @@ const courseData = {
 function updateDashboardStats() {
     const currentCourse = localStorage.getItem('currentCourseName');
     
-    const tempoEl = document.getElementById('stat-tempo');
-    const understandEl = document.getElementById('stat-understanding');
+    const tempoVal = document.getElementById('stat-tempo-val');
+    const tempoBar = document.getElementById('stat-tempo-bar');
+    
+    const understandVal = document.getElementById('stat-understanding-val');
+    const understandBar = document.getElementById('stat-understanding-bar');
+    
     const questionsEl = document.getElementById('stat-questions');
 
-    if (tempoEl && currentCourse && courseData[currentCourse]) {
-        
+    if (tempoVal && currentCourse && courseData[currentCourse]) {
         const data = courseData[currentCourse];
 
-        tempoEl.textContent = data.tempo + "%";
-        understandEl.textContent = data.understanding + "%";
+        tempoVal.textContent = data.tempo + "%";
+        understandVal.textContent = data.understanding + "%";
 
-        if(data.tempo > 80) tempoEl.style.color = "red"; // Sehr schnell
-        else if(data.tempo < 50) tempoEl.style.color = "blue"; // langsam
-        else tempoEl.style.color = "green"; // geeignet
+        setTimeout(() => {
+            tempoBar.style.width = data.tempo + "%";
+            understandBar.style.width = data.understanding + "%";
+        }, 100);
 
-        questionsEl.innerHTML = ""; //
+        if(data.tempo > 80) tempoBar.style.backgroundColor = "#e74c3c"; 
+        else if(data.tempo < 50) tempoBar.style.backgroundColor = "#3498db"; 
+        else tempoBar.style.backgroundColor = "#2ecc71"; 
+
+        if(data.understanding < 50) understandBar.style.backgroundColor = "#e74c3c";
+        else understandBar.style.backgroundColor = "#2ecc71";
+
+        questionsEl.innerHTML = ""; 
         data.questions.forEach(question => {
-            const li = document.createElement('li');
-            li.textContent = "- " + question;
-            questionsEl.appendChild(li);
+            const div = document.createElement('div');
+            div.className = 'question-card'; // كلاس التنسيق الجديد
+            div.textContent = question;
+            questionsEl.appendChild(div);
         });
     }
 }
+
 
 document.addEventListener('DOMContentLoaded', () => {
     
