@@ -135,3 +135,30 @@ document.addEventListener('DOMContentLoaded', () => {
     updateDashboardStats();
 });
 
+function validateAndGenerate() {
+    // 1. جلب حالة مربعات الاختيار الثلاثة الأساسية
+    // ملاحظة: تأكد من إضافة id لهذه المربعات في الـ HTML إذا لم تكن موجودة
+    // سأفترض أنك ستضيف ids كالتالي: check-tempo, check-verstaendnis, check-stimmung
+    // إذا لم تستطع تعديل الـ HTML لإضافة IDs، يمكننا استخدام QuerySelector المتطور
+    
+    // سأستخدم هنا الطريقة الأكثر أماناً (البحث داخل الكلاس .option-row)
+    const options = document.querySelectorAll('.option-row input[type="checkbox"]');
+    
+    // الـ options[0] هو Tempo
+    // الـ options[1] هو Verständnis
+    // الـ options[2] هو Stimmung
+    
+    const isTempoChecked = options[0].checked;
+    const isVerstaendnisChecked = options[1].checked;
+    const isStimmungChecked = options[2].checked;
+
+    // 2. التحقق: هل تم اختيار واحد على الأقل؟
+    if (!isTempoChecked && !isVerstaendnisChecked && !isStimmungChecked) {
+        // رسالة خطأ بالألمانية
+        alert("Bitte wählen Sie mindestens eine Feedback-Option aus (Tempo, Verständnis oder Stimmung)!");
+        return; // توقف هنا ولا تكمل
+    }
+
+    // 3. إذا كان كل شيء تمام، انتقل للصفحة التالية
+    location.href = 'qr_anzeige.html';
+}
