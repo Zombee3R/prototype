@@ -66,7 +66,6 @@ function validateAndGenerate() {
         // نحول الكائن لنص JSON لنحفظه في الذاكرة
         localStorage.setItem('sessionConfig', JSON.stringify(sessionConfig));
     }
-    }
 
     // B. حفظ السؤال النصي
     const questionInput = document.getElementById('popular-questions');
