@@ -262,5 +262,37 @@
             document.getElementById('thumb-tempo').style.left = Math.random() * 90 + 5 + '%';
         }, 3000);
     </script>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // 1. نبحث عن العنصر الذي سيعرض السؤال
+        // تأكد أنك أضفت div بهذا الـ ID في تبويب الـ Fragen كما اتفقنا سابقاً
+        let displayDiv = document.getElementById('main-question-display');
+        
+        // إذا لم يكن موجوداً، نقوم بإنشائه برمجياً ونضعه في أول تبويب الأسئلة
+        if (!displayDiv) {
+            displayDiv = document.createElement('div');
+            displayDiv.id = 'main-question-display';
+            displayDiv.style.cssText = "font-weight: bold; margin-bottom: 15px; padding: 10px; background: var(--card-header-bg); border-radius: 5px; border-left: 4px solid #e74c3c;";
+            
+            const fragenTab = document.getElementById('fragen');
+            if (fragenTab) {
+                fragenTab.prepend(displayDiv); // نضعه في البداية
+            }
+        }
+
+        // 2. نجلب السؤال من الذاكرة
+        const savedQuestion = localStorage.getItem('activeSessionQuestion');
+        
+        // 3. نعرضه
+        if (savedQuestion) {
+            displayDiv.innerHTML = `<strong>Aktuelle Frage:</strong> ${savedQuestion}`;
+            displayDiv.style.display = "block";
+        } else {
+            displayDiv.style.display = "none"; // نخفيه إذا مافي سؤال
+        }
+    });
+</script>
+
 </body>
 </html>
