@@ -158,7 +158,27 @@ function validateAndGenerate() {
         alert("Bitte wählen Sie mindestens eine Feedback-Option aus (Tempo, Verständnis oder Stimmung)!");
         return; // توقف هنا ولا تكمل
     }
+    
+// الجديد: حفظ السؤال المختار
+    const questionInput = document.getElementById('popular-questions');
+    const allowText = document.getElementById('allow-text-questions'); // الـ Checkbox الجديد
+
+    // إذا تم تفعيل خيار السؤال النصي، احفظ السؤال
+    if (allowText && allowText.checked) {
+        localStorage.setItem('activeSessionQuestion', questionInput.value);
+    } else {
+        localStorage.removeItem('activeSessionQuestion'); // حذف أي سؤال قديم إذا لم يتم تفعيله
+    }    
 
     // 3. إذا كان كل شيء تمام، انتقل للصفحة التالية
     location.href = 'qr_anzeige.html';
+}
+
+// عرض السؤال المختار
+const savedQuestion = localStorage.getItem('activeSessionQuestion');
+const displayDiv = document.getElementById('main-question-display');
+
+if (savedQuestion && displayDiv) {
+    displayDiv.textContent = "Frage an alle: " + savedQuestion;
+    displayDiv.style.display = "block";
 }
