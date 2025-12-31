@@ -6,7 +6,6 @@
     <title>Neuen Kurs anlegen - Lecture Feedback</title>
     <link rel="stylesheet" href="css/style.css">
     <style>
-        /* تنسيق بسيط للحقل الإضافي ليكون مطابقاً للتصميم */
         .input-group {
             display: flex;
             flex-direction: column;
@@ -14,7 +13,7 @@
             width: 100%;
         }
         .semester-input {
-            margin-top: 15px; /* مسافة بين الحقلين */
+            margin-top: 15px;
         }
     </style>
 </head>
@@ -36,29 +35,23 @@
     <main class="hero-section">
         <div class="center-container">
             
-            <!-- حقل اسم الكورس -->
             <div class="input-group">
                 <label for="new-course" class="input-label">Name des neuen Kurses:</label>
-                <!-- حذفنا القائمة المنسدلة وجعلناه حقلاً نصياً عادياً -->
                 <input type="text" id="new-course" class="main-input" placeholder="z.B. Software Engineering..." style="background-image: none;">
             </div>
 
-            <!-- حقل الفصل الدراسي (الجديد) -->
             <div class="input-group semester-input">
                 <label for="course-semester" class="input-label">Semester (Optional):</label>
                 <input type="text" id="course-semester" class="main-input" placeholder="z.B. WiSe 2025/26..." style="background-image: none;">
             </div>
 
-            <!-- زر الإنشاء -->
             <button class="main-button action-confirm" onclick="validateAndCreateCourse()">Kurs erstellen</button>
         </div>
     </main>
 
     <script src="js/script.js"></script>
     
-    <!-- كود المنطق الخاص بهذه الصفحة -->
     <script>
-        // قائمة الكورسات الموجودة مسبقاً (محاكاة لقاعدة البيانات)
         const existingCourses = ["Informatik", "HCI", "Mathematik"];
 
         function validateAndCreateCourse() {
@@ -68,14 +61,11 @@
             const courseName = nameInput.value.trim();
             const semester = semesterInput.value.trim();
 
-            // 1. التحقق من أن الاسم ليس فارغاً
             if (courseName === "") {
                 alert("Bitte geben Sie einen Kursnamen ein!");
                 return;
             }
 
-            // 2. التحقق من التكرار (Case-Insensitive)
-            // يعني: informatik هي نفسها Informatik
             const isDuplicate = existingCourses.some(
                 existing => existing.toLowerCase() === courseName.toLowerCase()
             );
@@ -85,16 +75,12 @@
                 return;
             }
 
-            // 3. النجاح: حفظ الكورس الجديد والانتقال
-            // نحفظ الاسم والسمستر في الذاكرة لنعرضهم في الداشبورد لاحقاً
             localStorage.setItem('currentCourseName', courseName);
             localStorage.setItem('currentSemester', semester);
             
-            // إضافة الكورس الجديد للقائمة (نظرياً، لأنه لا يوجد قاعدة بيانات حقيقية)
-            // في تطبيق حقيقي سيتم إرسال البيانات للسيرفر هنا.
             
             alert(`Kurs "${courseName}" wurde erfolgreich erstellt!`);
-            location.href = 'dashboard.html'; // الانتقال للداشبورد الخاص بالكورس الجديد
+            location.href = 'dashboard.html'; 
         }
     </script>
 </body>
