@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Feedback</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .welcome-box {
+            background-color: var(--card-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 15px;
+            padding: 40px 30px;
+            max-width: 500px;
+            margin: 50px auto;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .course-title {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: var(--text-color);
+        }
+        .anonym-notice {
+            background-color: var(--card-header-bg);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 25px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-size: 1rem;
+            border-left: 4px solid #3498db;
+        }
+        .user-icon {
+            font-size: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <header class="main-header">
+        <div class="url-display">Live Feedback</div>
+        <div class="user-menu">
+            <button class="icon-btn" onclick="toggleDarkMode()">
+                <span id="theme-icon">🌙</span>
+            </button>
+        </div>
+    </header>
+
+    <main class="hero-section">
+        <div class="welcome-box">
+            <h1 class="course-title" id="student-course-name">Live Feedback Informatik I</h1>
+            
+            <div class="anonym-notice">
+                <span class="user-icon">👤</span>
+                <strong>Dein Feedback ist anonym</strong>
+            </div>
+
+            <button class="main-button" onclick="location.href='student_feedback.html'">
+                Feedback geben
+            </button>
+        </div>
+    </main>
+
+    <script src="js/script.js"></script>
+    <script>
+        // عرض اسم الكورس من الذاكرة
+        document.addEventListener('DOMContentLoaded', () => {
+            const courseName = localStorage.getItem('currentCourseName') || 'Informatik I';
+            document.getElementById('student-course-name').textContent = `Live Feedback ${courseName}`;
+        });
+    </script>
+</body>
+</html>
