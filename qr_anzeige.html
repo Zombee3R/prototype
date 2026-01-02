@@ -64,35 +64,8 @@
             <span class="user-avatar">👤</span>
         </div>
     </header>
-
-    <main class="hero-section">
-        <div class="center-container qr-display-container">
-            <h2>QR-Code für Studierende</h2>
-            <p class="qr-instruction">Zeigen Sie diesen Code im Hörsaal</p>
-            
-            <!-- مكان عرض الـ QR Code -->
-            <div id="qrcode" class="qr-box"></div>
-
-            <!-- أزرار التحكم -->
-            <div style="display: flex; gap: 15px; flex-wrap: wrap; justify-content: center; margin-top: 30px;">
-                <button class="main-button" onclick="location.href='live_dashboard.html'">
-                    Live-Dashboard öffnen
-                </button>
-                
-                <!-- الزر الجديد للطالب (للاختبار) -->
-                <button class="main-button" onclick="window.open('student_scan.html', '_blank')" 
-                        style="background-color: #3498db;">
-                    🎓 Studierenden-Ansicht testen
-                </button>
-            </div>
-
-            <p class="qr-hint">💡 Tipp: Studenten scannen mit ihrer Kamera-App</p>
-        </div>
-    </main>
-
-
     
-    <!-- <main class="hero-section">
+    <main class="hero-section">
         <div class="qr-container">
             
             <div id="qrcode"></div>
@@ -104,9 +77,14 @@
             <button class="live-btn" onclick="location.href='live_dashboard.html'">
                 Live-Dashboard öffnen
             </button>
+                    <!-- الزر الجديد للطالب (للاختبار) -->
+                <button class="main-button" onclick="window.open('student_scan.html', '_blank')" 
+                        style="background-color: #3498db;">
+                    🎓 Studierenden-Ansicht testen
+                </button>
 
         </div>
-    </main> -->
+    </main>
 
     <script src="js/qrcode.min.js"></script>
     <script src="js/script.js"></script>
