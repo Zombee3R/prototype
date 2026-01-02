@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fragen & Kommentare</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .questions-container {
+            max-width: 600px;
+            margin: 30px auto;
+            padding: 20px;
+        }
+        .input-section {
+            background-color: var(--card-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 25px;
+        }
+        .input-section h3 {
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+        }
+        .input-section textarea {
+            width: 100%;
+            min-height: 100px;
+            padding: 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 1rem;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            resize: vertical;
+            font-family: inherit;
+        }
+        .hint-text {
+            font-size: 0.85rem;
+            opacity: 0.7;
+            margin-top: 8px;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <header class="main-header">
+        <div class="url-display">Fragen & Kommentare</div>
+        <div class="user-menu">
+            <button class="icon-btn" onclick="toggleDarkMode()">
+                <span id="theme-icon">🌙</span>
+            </button>
+        </div>
+    </header>
+
+    <main class="questions-container">
+        
+        <!-- Fragen Bereich -->
+        <div class="input-section">
+            <h3>Hast du eine Frage?</h3>
+            <textarea id="frage-input" placeholder="z.B. Können Sie das letzte Beispiel nochmal erklären?"></textarea>
+            <p class="hint-text">💡 Hier kannst du fachliche Fragen zum aktuellen Vorlesungsthema stellen.</p>
+        </div>
+
+        <!-- Kommentare Bereich -->
+        <div class="input-section">
+            <h3>Kommentar</h3>
+            <textarea id="kommentar-input" placeholder="z.B. Die Lautstärke ist zu leise..."></textarea>
+            <p class="hint-text">💬 Hier kannst du allgemeine Hinweise geben (z.B. zur Technik, Lesbarkeit, etc.)</p>
+        </div>
+
+        <button class="main-button" onclick="submitFeedback()">Anonym Senden</button>
+    </main>
+
+    <script src="js/script.js"></script>
+    <script>
+        function submitFeedback() {
+            // هنا يمكنك إضافة منطق الإرسال لاحقاً (WebSocket أو API)
+            // حالياً نكتفي بالانتقال لصفحة الشكر
+            location.href = 'student_thankyou.html';
+        }
+    </script>
+</body>
+</html>
