@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback Scanner</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .scan-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 80vh;
+            text-align: center;
+        }
+        .qr-placeholder {
+            width: 300px;
+            height: 300px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 30px auto;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        .qr-icon {
+            font-size: 8rem;
+            color: white;
+        }
+        .scan-instructions {
+            font-size: 1.1rem;
+            color: var(--text-color);
+            margin-top: 20px;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <header class="main-header">
+        <div class="url-display">Feedback Scanner</div>
+        <div class="user-menu">
+            <button class="icon-btn" onclick="toggleDarkMode()">
+                <span id="theme-icon">🌙</span>
+            </button>
+        </div>
+    </header>
+
+    <main class="scan-container">
+        <h1>Scanne den QR-Code</h1>
+        <div class="qr-placeholder">
+            <div class="qr-icon">📷</div>
+        </div>
+        <p class="scan-instructions">Halte dein Gerät über den QR-Code auf dem Beamer</p>
+        
+        <!-- للتجربة فقط: زر مباشر -->
+        <button class="main-button" onclick="location.href='student_welcome.html'" style="margin-top: 30px;">
+            Simuliere Scan (Test)
+        </button>
+    </main>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
