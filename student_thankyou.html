@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Danke!</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .thankyou-box {
+            max-width: 500px;
+            margin: 80px auto;
+            padding: 50px 30px;
+            background-color: var(--card-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+        .heart-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            animation: heartbeat 1.5s infinite;
+        }
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        .thankyou-box h1 {
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+        .thankyou-box p {
+            font-size: 1.1rem;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <header class="main-header">
+        <div class="url-display">Feedback gesendet</div>
+        <div class="user-menu">
+            <button class="icon-btn" onclick="toggleDarkMode()">
+                <span id="theme-icon">🌙</span>
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <div class="thankyou-box">
+            <div class="heart-icon">❤️</div>
+            <h1>Danke für dein Feedback!</h1>
+            <p>Deine Meinung hilft uns, die Vorlesung zu verbessern.</p>
+        </div>
+    </main>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
